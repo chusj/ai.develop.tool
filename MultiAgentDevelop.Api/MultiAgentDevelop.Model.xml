@@ -726,6 +726,66 @@
             获取或设置是否禁用，逻辑上的删除，非物理删除
              </summary>
         </member>
+        <member name="T:MultiAgentDevelop.Model.Models.ReportAbnoraml">
+            <summary>
+            报告异常信息
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.OrganId">
+            <summary>
+            机构ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.ReportId">
+            <summary>
+            报告ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.AbnormalCode">
+            <summary>
+            异常编码
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.AbnormalName">
+            <summary>
+            异常名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.AbnormalType">
+            <summary>
+            异常类型
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.DangerLevel">
+            <summary>
+            紧急性，原预警等级
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.MedicalLimit">
+            <summary>
+            重要性，原就医期限
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.MedicalExplain">
+            <summary>
+            医学解释
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.CommonCause">
+            <summary>
+            常见原因
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.Advice">
+            <summary>
+            建议
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.ReportAbnoraml.OrderId">
+            <summary>
+            排序ID
+            </summary>
+        </member>
         <member name="T:MultiAgentDevelop.Model.Models.Role">
             <summary>
             角色表

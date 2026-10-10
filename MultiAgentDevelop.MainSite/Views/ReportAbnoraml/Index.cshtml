@@ -1,0 +1,98 @@
+@model MultiAgentDevelop.Model.PageModel<MultiAgentDevelop.Model.Models.ReportAbnoraml>
+@{
+    ViewData["Title"] = "报告异常信息";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+
+    var keyword = ViewBag.Keyword as string ?? string.Empty;
+    var pageSize = Model.PageSize;
+    var previousPage = Model.page > 1 ? Model.page - 1 : 1;
+    var nextPage = Model.page < Model.pageCount ? Model.page + 1 : Model.pageCount;
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+        <h1 class="h3 mb-1">报告异常信息</h1>
+        <div class="text-muted">共 @Model.dataCount 条，第 @Model.page / @Math.Max(Model.pageCount, 1) 页</div>
+    </div>
+</div>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-5">
+        <input class="form-control" type="text" name="keyword" value="@keyword" placeholder="按异常编码、异常名称、报告ID搜索" />
+    </div>
+    <div class="col-md-2">
+        <select class="form-select" name="pageSize">
+            @foreach (var size in new[] { 10, 20, 50, 100 })
+            {
+                <option value="@size" selected="@(pageSize == size)">@size 条/页</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">查询</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>机构ID</th>
+                <th>报告ID</th>
+                <th>异常编码</th>
+                <th>异常名称</th>
+                <th>异常类型</th>
+                <th>紧急性</th>
+                <th>重要性</th>
+                <th>排序ID</th>
+                <th>医学解释</th>
+                <th>常见原因</th>
+                <th>建议</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.data?.Any() == true)
+            {
+                foreach (var item in Model.data)
+                {
+                    <tr>
+                        <td>@item.OrganId</td>
+                        <td class="text-break">@item.ReportId</td>
+                        <td>@item.AbnormalCode</td>
+                        <td>@item.AbnormalName</td>
+                        <td>@item.AbnormalType</td>
+                        <td>@item.DangerLevel</td>
+                        <td>@item.MedicalLimit</td>
+                        <td>@item.OrderId</td>
+                        <td class="text-break">@item.MedicalExplain</td>
+                        <td class="text-break">@item.CommonCause</td>
+                        <td class="text-break">@item.Advice</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="11" class="text-center text-muted">暂无数据</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<nav aria-label="报告异常分页">
+    <ul class="pagination">
+        <li class="page-item @(Model.page <= 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = previousPage, pageSize, keyword })">上一页</a>
+        </li>
+        @for (var i = Math.Max(1, Model.page - 2); i <= Math.Min(Math.Max(Model.pageCount, 1), Model.page + 2); i++)
+        {
+            <li class="page-item @(Model.page == i ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize, keyword })">@i</a>
+            </li>
+        }
+        <li class="page-item @(Model.page >= Model.pageCount ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = nextPage, pageSize, keyword })">下一页</a>
+        </li>
+    </ul>
+</nav>

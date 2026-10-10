@@ -16,7 +16,7 @@
   - 后续主站入口。
   - 当前是 ASP.NET Core Razor Pages 默认结构。
   - `Program.cs` 仅注册 `AddRazorPages`、静态文件、路由和授权。
-  - 当前未引用框架类库，接入框架能力时需要添加项目引用和启动装配。
+  - 当前已引用 `MultiAgentDevelop.Extensions`，并配置 Oracle 主库/日志库；接入具体框架能力时仍需补充启动装配。
 - `MultiAgentDevelop.Api`
   - 框架示例 API。
   - 启动代码展示 Autofac、配置加载、SqlSugar、种子数据、Serilog、Swagger、JWT/Ids4/Authing、Redis、RabbitMQ、Kafka、Nacos、AOP、中间件、SignalR、MiniProfiler 等能力的完整接入方式。
@@ -47,7 +47,7 @@
 - `Extensions` 引用 `EventBus`、`Serilog`、`Services`、`Tasks`。
 - `Common` 引用 `Model`、`Serilog.Es`、`Ocelot.Provider.Nacos`。
 - `Gateway` 引用 `Extensions` 和 `Model`。
-- `MainSite` 当前没有业务层引用；不要假设其已具备示例 API 的完整启动能力。
+- `MainSite` 当前引用 `Extensions`，但不要假设其已具备示例 API 的完整启动能力。
 
 ## 开发原则
 
@@ -87,5 +87,5 @@ dotnet test .\MultiAgentDevelop.Tests\MultiAgentDevelop.Tests.csproj
 
 - `AGENT.md` 和 `README.md` 原本为空，本次初始化用于建立项目认知。
 - `MultiAgentDevelop.Api.csproj` 没有显式 `TargetFramework`，由 `Directory.Build.props` 继承 `net8.0`。
-- `MultiAgentDevelop.MainSite.csproj` 显式配置 `net8.0`、`Nullable=enable`、`ImplicitUsings=enable`。
+- `MultiAgentDevelop.MainSite.csproj` 显式配置 `net8.0`、`Nullable=enable`、`ImplicitUsings=enable`，并参考示例 API 增加框架初始化依赖。
 - `MultiAgentDevelop.Api` 的 Debug 输出和部分库项目输出路径仍偏向旧示例结构，后续主站集成时需重新评估输出路径。
