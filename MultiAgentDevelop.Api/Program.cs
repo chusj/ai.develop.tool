@@ -1,0 +1,190 @@
+﻿// 以下为asp.net 6.0的写法，如果用5.0，请看Program.five.cs文件，
+// 或者参考github上的.net6.0分支相关代码
+
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using MultiAgentDevelop;
+using MultiAgentDevelop.Common;
+using MultiAgentDevelop.Common.Core;
+using MultiAgentDevelop.Common.Helper;
+using MultiAgentDevelop.Extensions;
+using MultiAgentDevelop.Extensions.Apollo;
+using MultiAgentDevelop.Extensions.Middlewares;
+using MultiAgentDevelop.Extensions.ServiceExtensions;
+using MultiAgentDevelop.Filter;
+using MultiAgentDevelop.Hubs;
+using MultiAgentDevelop.Serilog.Utility;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using Serilog;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+// 1、配置host与容器
+builder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacModuleRegister());
+        builder.RegisterModule<AutofacPropertityModuleReg>();
+    })
+    .ConfigureAppConfiguration((hostingContext, config) =>
+    {
+        hostingContext.Configuration.ConfigureApplication();
+        config.Sources.Clear();
+        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+        config.AddConfigurationApollo("appsettings.apollo.json");
+    });
+builder.ConfigureApplication();
+
+// 2、配置服务
+builder.Services.AddSingleton(new AppSettings(builder.Configuration));
+builder.Services.AddAllOptionRegister();
+
+builder.Services.AddUiFilesZipSetup(builder.Environment);
+
+Permissions.IsUseIds4 = AppSettings.app(new string[] { "Startup", "IdentityServer4", "Enabled" }).ObjToBool();
+Permissions.IsUseAuthing = AppSettings.app(new string[] { "Startup", "Authing", "Enabled" }).ObjToBool();
+RoutePrefix.Name = AppSettings.app(new string[] { "AppSettings", "SvcName" }).ObjToString();
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+builder.Services.AddCacheSetup();
+builder.Services.AddSqlsugarSetup();
+builder.Services.AddDbSetup();
+builder.Services.AddInitializationHostServiceSetup();
+
+builder.Host.AddSerilogSetup();
+
+builder.Services.AddAutoMapperSetup();
+builder.Services.AddCorsSetup();
+builder.Services.AddMiniProfilerSetup();
+builder.Services.AddSwaggerSetup();
+builder.Services.AddJobSetup();
+
+builder.Services.AddHttpContextSetup();
+builder.Services.AddAppTableConfigSetup(builder.Environment);
+builder.Services.AddHttpPollySetup();
+builder.Services.AddNacosSetup(builder.Configuration);
+builder.Services.AddRedisInitMqSetup();
+
+builder.Services.AddIpPolicyRateLimitSetup(builder.Configuration);
+builder.Services.AddSignalR().AddNewtonsoftJsonProtocol();
+
+builder.Services.AddAuthorizationSetup();
+if (Permissions.IsUseIds4 || Permissions.IsUseAuthing)
+{
+    if (Permissions.IsUseIds4) builder.Services.AddAuthentication_Ids4Setup();
+    else if (Permissions.IsUseAuthing) builder.Services.AddAuthentication_AuthingSetup();
+}
+else
+{
+    builder.Services.AddAuthentication_JWTSetup();
+}
+
+builder.Services.AddScoped<UseServiceDIAttribute>();
+builder.Services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
+    .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
+
+builder.Services.AddSession();
+builder.Services.AddDataProtectionSetup();
+builder.Services.AddControllers(o =>
+    {
+        o.Filters.Add(typeof(GlobalExceptionsFilter));
+        //o.Conventions.Insert(0, new GlobalRouteAuthorizeConvention());
+        o.Conventions.Insert(0, new GlobalRoutePrefixFilter(new RouteAttribute(RoutePrefix.Name)));
+    })
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+        options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+        //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+        options.SerializerSettings.Converters.Add(new StringEnumConverter());
+        //将long类型转为string
+        options.SerializerSettings.Converters.Add(new NumberConverter(NumberConverterShip.Int64));
+    });
+
+builder.Services.AddRabbitMQSetup();
+builder.Services.AddKafkaSetup(builder.Configuration);
+builder.Services.AddEventBusSetup();
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+// 3、配置中间件
+var app = builder.Build();
+IdentityModelEventSource.ShowPII = true;
+
+app.ConfigureApplication();
+app.UseApplicationSetup();
+app.UseResponseBodyRead();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    //app.UseHsts();
+}
+
+app.UseEncryptionRequest();
+app.UseEncryptionResponse();
+
+app.UseExceptionHandlerMiddle();
+app.UseIpLimitMiddle();
+app.UseRequestResponseLogMiddle();
+app.UseRecordAccessLogsMiddle();
+app.UseSignalRSendMiddle();
+app.UseIpLogMiddle();
+app.UseAllServicesMiddle(builder.Services);
+
+app.UseSession();
+app.UseSwaggerAuthorized();
+app.UseSwaggerMiddle(() => Assembly.GetExecutingAssembly().GetManifestResourceStream("MultiAgentDevelop.Api.index.html"));
+
+app.UseCors(AppSettings.app(new string[] { "Startup", "Cors", "PolicyName" }));
+DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+defaultFilesOptions.DefaultFileNames.Clear();
+defaultFilesOptions.DefaultFileNames.Add("index.html");
+app.UseDefaultFiles(defaultFilesOptions);
+app.UseStaticFiles();
+app.UseCookiePolicy();
+app.UseStatusCodePages();
+app.UseSerilogRequestLogging(options =>
+{
+    options.MessageTemplate = SerilogRequestUtility.HttpMessageTemplate;
+    options.GetLevel = SerilogRequestUtility.GetRequestLevel;
+    options.EnrichDiagnosticContext = SerilogRequestUtility.EnrichFromRequest;
+});
+app.UseRouting();
+
+if (builder.Configuration.GetValue<bool>("AppSettings:UseLoadTest"))
+{
+    app.UseMiddleware<ByPassAuthMiddleware>();
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiniProfilerMiddleware();
+
+app.MapControllers();
+app.MapHub<ChatHub>("/api2/chatHub");
+
+// 4、运行
+app.Run();

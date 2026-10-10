@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiAgentDevelop.Common\MultiAgentDevelop.Common.csproj" />
+    <ProjectReference Include="..\MultiAgentDevelop.Model\MultiAgentDevelop.Model.csproj" />
+  </ItemGroup>
+
+</Project>

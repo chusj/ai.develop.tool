@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <ItemGroup>
+    <None Update="MultiAgentDevelop.FrameWork.Entity\MultiAgentDevelop.FrameWork.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiAgentDevelop.FrameWork.cs</LastGenOutput>
+    </None>
+    <None Update="MultiAgentDevelop.FrameWork.IRepository\MultiAgentDevelop.FrameWork.IRepository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiAgentDevelop.FrameWork.IRepository.cs</LastGenOutput>
+    </None>
+    <None Update="MultiAgentDevelop.FrameWork.IServices\MultiAgentDevelop.FrameWork.IServices.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiAgentDevelop.FrameWork.IServices.cs</LastGenOutput>
+    </None>
+    <None Update="MultiAgentDevelop.FrameWork.Repository\MultiAgentDevelop.FrameWork.Repository.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiAgentDevelop.FrameWork.Repository.cs</LastGenOutput>
+    </None>
+    <None Update="MultiAgentDevelop.FrameWork.Services\MultiAgentDevelop.FrameWork.Services.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MultiAgentDevelop.FrameWork.Services.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MultiAgentDevelop.FrameWork.IRepository\MultiAgentDevelop.FrameWork.IRepository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiAgentDevelop.FrameWork.IRepository.tt</DependentUpon>
+    </Compile>
+    <Compile Update="MultiAgentDevelop.FrameWork.IServices\MultiAgentDevelop.FrameWork.IServices.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiAgentDevelop.FrameWork.IServices.tt</DependentUpon>
+    </Compile>
+    <Compile Update="MultiAgentDevelop.FrameWork.Repository\MultiAgentDevelop.FrameWork.Repository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiAgentDevelop.FrameWork.Repository.tt</DependentUpon>
+    </Compile>
+    <Compile Update="MultiAgentDevelop.FrameWork.Services\MultiAgentDevelop.FrameWork.Services.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultiAgentDevelop.FrameWork.Services.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
