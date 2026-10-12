@@ -8,7 +8,7 @@ namespace MultiAgentDevelop.Model.Models
 	/// 用户信息表
 	/// </summary>
 	//[SugarTable("SysUserInfo")]
-	[SugarTable("SysUserInfo", "用户表")] //('数据库表名'，'数据库表备注')
+	[SugarTable("sys_userinfo", "用户表")] //('数据库表名'，'数据库表备注')
 	public class SysUserInfo : SysUserInfoRoot<long>
 	{
 		public SysUserInfo()

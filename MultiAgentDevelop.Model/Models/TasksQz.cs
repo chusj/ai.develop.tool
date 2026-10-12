@@ -6,8 +6,9 @@ using System.Collections.Generic;
 namespace MultiAgentDevelop.Model.Models
 {
     /// <summary>
-    /// 任务计划表
+    /// 任务表
     /// </summary>
+    [SugarTable("tasks_qz", "任务表")]
     public class TasksQz : RootEntityTkey<long>
     {
         /// <summary>
@@ -38,7 +39,7 @@ namespace MultiAgentDevelop.Model.Models
         /// <summary>
         /// 任务描述
         /// </summary>
-        [SugarColumn(Length = 1000, IsNullable = true)]
+        [SugarColumn(Length = 2000, IsNullable = true)]
         public string Remark { get; set; }
         /// <summary>
         /// 执行次数

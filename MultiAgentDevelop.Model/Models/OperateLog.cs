@@ -6,6 +6,7 @@ namespace MultiAgentDevelop.Model.Models
     /// <summary>
     /// 日志记录
     /// </summary>
+    [SugarTable("operate_log", "日志记录表")]
     public class OperateLog : RootEntityTkey<long>
     {
 
