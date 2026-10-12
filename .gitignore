@@ -360,3 +360,20 @@ MultiAgentDevelop.Api/Logs
 /MultiAgentDevelop.Api/WMBlog.db-journal
 .docs/.vuepress/dist/
 MultiAgentDevelop.Api/wwwroot/Temp/Sessions
+
+# Vue / Vite frontend
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.vite/
+**/.cache/
+**/.temp/
+**/.tmp/
+**/coverage/
+**/.nyc_output/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.env.local
+**/.env.*.local
