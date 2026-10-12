@@ -24,17 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		codecov.yml = codecov.yml
-		CreateYourProject.bat = CreateYourProject.bat
 		Directory.Build.props = Directory.Build.props
-		DockerBuild.bat = DockerBuild.bat
-		Dockerfile = Dockerfile
-		MultiAgentDevelop.Build.bat = MultiAgentDevelop.Build.bat
-		MultiAgentDevelop.Publish.bat = MultiAgentDevelop.Publish.bat
-		MultiAgentDevelop.Publish.Docker.Jenkins.sh = MultiAgentDevelop.Publish.Docker.Jenkins.sh
-		MultiAgentDevelop.Publish.Docker.sh = MultiAgentDevelop.Publish.Docker.sh
-		MultiAgentDevelop.Publish.Linux.sh = MultiAgentDevelop.Publish.Linux.sh
-		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -59,8 +49,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.Provider.Nacos", "Ocelot.Provider.Nacos\Ocelot.Provider.Nacos.csproj", "{6463FB13-5F01-4A1D-8B62-A454FB3812EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiAgentDevelop.Serilog", "MultiAgentDevelop.Serilog\MultiAgentDevelop.Serilog.csproj", "{7F9057F0-ED8D-4694-B590-7D75C012DF00}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiAgentDevelop.MainSite", "MultiAgentDevelop.MainSite\MultiAgentDevelop.MainSite.csproj", "{59C836EA-3AC6-4B1B-B85C-3310F454808F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,10 +116,6 @@ Global
 		{7F9057F0-ED8D-4694-B590-7D75C012DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F9057F0-ED8D-4694-B590-7D75C012DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F9057F0-ED8D-4694-B590-7D75C012DF00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59C836EA-3AC6-4B1B-B85C-3310F454808F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59C836EA-3AC6-4B1B-B85C-3310F454808F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59C836EA-3AC6-4B1B-B85C-3310F454808F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59C836EA-3AC6-4B1B-B85C-3310F454808F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
