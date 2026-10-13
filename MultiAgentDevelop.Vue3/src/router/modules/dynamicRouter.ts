@@ -37,14 +37,18 @@ export const initDynamicRouter = async (params: Menu.MenuRequest) => {
     // 3.添加动态路由
     authStore.flatMenuListGet.forEach(item => {
       item.children && delete item.children;
-      if (!item.IsButton && item.path && typeof item.path == "string" && item.path != ' ' && item.path != '-') {
-        if (item.path == '/') {
-          item.component = modules["/src/views/home/index.vue"];
-        } else if (item.path.indexOf('/:id')) {
-          item.component = modules["/src/views" + item.path.replace('/:id','') + ".vue"];
-        } else {
-          item.component = modules["/src/views" + item.path + ".vue"];
+      if (!item.IsButton && item.path && typeof item.path == "string" && item.path.trim() && item.path != '-') {
+        const viewPath = item.path == '/'
+          ? "/src/views/home/index.vue"
+          : "/src/views" + item.path.replace('/:id', '') + ".vue";
+        const component = modules[viewPath];
+
+        if (!component) {
+          console.warn(`[router] 未找到菜单路径对应的页面组件：${item.path} -> ${viewPath}`);
+          return;
         }
+
+        item.component = component;
         router.addRoute("layout", item as unknown as RouteRecordRaw);
       }
     });

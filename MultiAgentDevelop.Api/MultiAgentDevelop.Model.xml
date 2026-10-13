@@ -1170,7 +1170,7 @@
         </member>
         <member name="T:MultiAgentDevelop.Model.Models.TasksQz">
             <summary>
-            任务计划表
+            任务表
             </summary>
         </member>
         <member name="P:MultiAgentDevelop.Model.Models.TasksQz.Name">

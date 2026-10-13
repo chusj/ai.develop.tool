@@ -92,6 +92,11 @@ const loginModule = (formEl: FormInstance | undefined) => {
         // 登录失败，显示错误信息
         ElMessage.error(response.msg || "请求失败！请您稍后重试");;
       }
+    } catch (error) {
+      console.error("登录失败", error);
+      authStore.clearToken();
+      userInfoStore.clearUser();
+      ElMessage.error("登录失败，请检查接口连接或稍后重试");
     } finally {
       loading.value = false;
     }

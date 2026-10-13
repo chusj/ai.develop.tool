@@ -43,7 +43,7 @@ export interface PageModel<T> {
 
 // 创建 axios 实例
 const axiosInstance = axios.create({
-    baseURL: '',  // 替换为你的 API 基础 URL
+    baseURL: 'http://localhost:9291',
     timeout: 10000,  // 请求超时时间
 });
 
