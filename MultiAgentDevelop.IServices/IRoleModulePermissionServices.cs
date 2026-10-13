@@ -12,14 +12,13 @@ namespace MultiAgentDevelop.IServices
 	{
 
         Task<List<RoleModulePermission>> GetRoleModule();
-        Task<List<TestMuchTableResult>> QueryMuchTable();
         Task<List<RoleModulePermission>> RoleModuleMaps();
         Task<List<RoleModulePermission>> GetRMPMaps();
         /// <summary>
-        /// ÅúÁ¿¸üÐÂ²Ëµ¥Óë½Ó¿ÚµÄ¹ØÏµ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â²Ëµï¿½ï¿½ï¿½Ó¿ÚµÄ¹ï¿½Ïµ
         /// </summary>
-        /// <param name="permissionId">²Ëµ¥Ö÷¼ü</param>
-        /// <param name="moduleId">½Ó¿ÚÖ÷¼ü</param>
+        /// <param name="permissionId">ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½</param>
+        /// <param name="moduleId">ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½</param>
         /// <returns></returns>
         Task UpdateModuleId(long permissionId, long moduleId);
     }

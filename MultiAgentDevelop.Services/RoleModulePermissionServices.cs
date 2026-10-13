@@ -62,11 +62,6 @@ namespace MultiAgentDevelop.Services
             return roleModulePermissions;
         }
 
-        public async Task<List<TestMuchTableResult>> QueryMuchTable()
-        {
-            return await _dal.QueryMuchTable();
-        }
-
         public async Task<List<RoleModulePermission>> RoleModuleMaps()
         {
             return await _dal.RoleModuleMaps();

@@ -7,7 +7,6 @@ namespace MultiAgentDevelop.Model.Models
     /// 密码库表
     /// </summary>
     [SugarTable("PasswordLib", "密码库表")]//('数据库表名'，'数据库表备注')
-    //[TenantAttribute("WMBLOG_MYSQL_2")] //('代表是哪个数据库，名字是appsettings.json 的 ConnId')
     public class PasswordLib
     {
         [SugarColumn(IsNullable = false, IsPrimaryKey = true, IsIdentity = false)]

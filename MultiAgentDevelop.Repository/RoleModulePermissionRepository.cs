@@ -17,27 +17,6 @@ namespace MultiAgentDevelop.Repository
         {
         }
 
-        public async Task<List<TestMuchTableResult>> QueryMuchTable()
-        {
-            return await QueryMuch<RoleModulePermission, Modules, Permission, TestMuchTableResult>(
-                (rmp, m, p) => new object[] {
-                    JoinType.Left, rmp.ModuleId == m.Id,
-                    JoinType.Left,  rmp.PermissionId == p.Id
-                },
-
-                (rmp, m, p) => new TestMuchTableResult()
-                {
-                    moduleName = m.Name,
-                    permName = p.Name,
-                    rid = rmp.RoleId,
-                    mid = rmp.ModuleId,
-                    pid = rmp.PermissionId
-                },
-
-                (rmp, m, p) => rmp.IsDeleted == false
-                );
-        }
-
         /// <summary>
         /// 角色权限Map
         /// RoleModulePermission, Module, Role 三表联合

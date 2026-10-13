@@ -38,7 +38,6 @@ namespace MultiAgentDevelop.Controllers
     {
         private IMapper _mapper;
         private readonly Love _love;
-        private readonly IRoleModulePermissionServices _roleModulePermissionServices;
         private readonly IUser _user;
         private readonly IPasswordLibServices _passwordLibServices;
         readonly IBlogArticleServices _blogArticleServices;
@@ -48,13 +47,12 @@ namespace MultiAgentDevelop.Controllers
         private readonly ICaching _cache;
 
         public ValuesController(IBlogArticleServices blogArticleServices, IMapper mapper, Love love,
-            IRoleModulePermissionServices roleModulePermissionServices, IUser user, IPasswordLibServices passwordLibServices,
+            IUser user, IPasswordLibServices passwordLibServices,
             IHttpPollyHelper httpPollyHelper, IRabbitMQPersistentConnection persistentConnection, IOptions<SeqOptions> seqOptions, ICaching caching)
         {
             // 测试 Authorize 和 mapper
             _mapper = mapper;
             _love = love;
-            _roleModulePermissionServices = roleModulePermissionServices;
             // 测试 Httpcontext
             _user = user;
             // 测试多库
@@ -185,9 +183,6 @@ namespace MultiAgentDevelop.Controllers
             // 测试 AOP 缓存
             var blogArticles = await _blogArticleServices.GetBlogs();
 
-
-            // 测试多表联查
-            var roleModulePermissions = await _roleModulePermissionServices.QueryMuchTable();
 
             return data;
         }
