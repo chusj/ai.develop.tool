@@ -1,5 +1,4 @@
-﻿using MultiAgentDevelop.IServices;
-using InitQ.Abstractions;
+﻿using InitQ.Abstractions;
 using InitQ.Attributes;
 using System;
 using System.Threading.Tasks;
@@ -8,13 +7,6 @@ namespace MultiAgentDevelop.Extensions.Redis
 {
     public class RedisSubscribe : IRedisSubscribe
     {
-        private readonly IBlogArticleServices _blogArticleServices;
-
-        public RedisSubscribe(IBlogArticleServices blogArticleServices)
-        {
-            _blogArticleServices = blogArticleServices;
-        }
-
         [Subscribe(RedisMqKey.Loging)]
         private async Task SubRedisLoging(string msg)
         {

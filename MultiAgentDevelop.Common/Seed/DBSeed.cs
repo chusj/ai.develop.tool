@@ -130,23 +130,6 @@ namespace MultiAgentDevelop.Common.Seed
 
                     var importer = new ExcelImporter();
 
-                    #region BlogArticle
-
-                    if (!await myContext.Db.Queryable<BlogArticle>().AnyAsync())
-                    {
-                        myContext.GetEntityDB<BlogArticle>().InsertRange(
-                            JsonHelper.ParseFormByJson<List<BlogArticle>>(
-                                FileHelper.ReadFile(string.Format(SeedDataFolder, "BlogArticle"), Encoding.UTF8)));
-                        Console.WriteLine("Table:BlogArticle created success!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table:BlogArticle already exists...");
-                    }
-
-                    #endregion
-
-
                     #region Modules
 
                     if (!await myContext.Db.Queryable<Modules>().AnyAsync())
@@ -218,42 +201,6 @@ namespace MultiAgentDevelop.Common.Seed
                     else
                     {
                         Console.WriteLine("Table:RoleModulePermission already exists...");
-                    }
-
-                    #endregion
-
-
-                    #region Topic
-
-                    if (!await myContext.Db.Queryable<Topic>().AnyAsync())
-                    {
-                        var data = JsonConvert.DeserializeObject<List<Topic>>(
-                            FileHelper.ReadFile(string.Format(SeedDataFolder, "Topic"), Encoding.UTF8), setting);
-
-                        myContext.GetEntityDB<Topic>().InsertRange(data);
-                        Console.WriteLine("Table:Topic created success!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table:Topic already exists...");
-                    }
-
-                    #endregion
-
-
-                    #region TopicDetail
-
-                    if (!await myContext.Db.Queryable<TopicDetail>().AnyAsync())
-                    {
-                        var data = JsonConvert.DeserializeObject<List<TopicDetail>>(
-                            FileHelper.ReadFile(string.Format(SeedDataFolder, "TopicDetail"), Encoding.UTF8), setting);
-
-                        myContext.GetEntityDB<TopicDetail>().InsertRange(data);
-                        Console.WriteLine("Table:TopicDetail created success!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table:TopicDetail already exists...");
                     }
 
                     #endregion

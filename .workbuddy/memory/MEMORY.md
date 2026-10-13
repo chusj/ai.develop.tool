@@ -24,7 +24,10 @@
 
 - 交付文档写 Markdown 放项目根目录，回复里给核心结论摘要（褚哥的既定习惯）。
 - 改数据库相关代码前，先确认 `appsettings.json` 的 Main 连接指向哪个库 —— 目前是 SeeHealth 的生产 Oracle。
+- **扫描实体引用时，必须同时搜 `Xxx` 和 `IXxxServices`。** 只搜实体名会漏掉构造函数注入（`\bBlogArticle\b` 匹配不到 `IBlogArticleServices`），A/B 档清理时都踩过一次。
+- **项目定位（2026-10-13 确认）**：不做博客/话题/留言/密码库业务，B 档已删。尚待确认：微信模块、多租户、Quartz 定时任务是否保留。
+- 实体命名空间决定是否建表：只有 `MultiAgentDevelop.Model.Models` 会被 `DBSeed` 反射建表，`ViewModels` / `...Models.RootTkey` / `MultiAgentDevelop.Model` 都不会。放错命名空间的 DTO 会被误建成表。
 
 ## 相关文档
 
-- `Model实体关联关系与清理清单.md`（项目根目录）— 实体关联图 + 引用矩阵 + 删除影响链
+- `Model实体关联关系与清理清单.md`（项目根目录）— 实体关联图 + 引用矩阵 + 删除影响链 + A/B 档执行记录

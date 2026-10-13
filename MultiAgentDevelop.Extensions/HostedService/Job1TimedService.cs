@@ -10,12 +10,12 @@ namespace MultiAgentDevelop.Extensions
     public class Job1TimedService : IHostedService, IDisposable
     {
         private Timer _timer;
-        private readonly IBlogArticleServices _blogArticleServices;
+        private readonly ISysUserInfoServices _sysUserInfoServices;
 
         // 这里可以注入
-        public Job1TimedService(IBlogArticleServices blogArticleServices)
+        public Job1TimedService(ISysUserInfoServices sysUserInfoServices)
         {
-            _blogArticleServices = blogArticleServices;
+            _sysUserInfoServices = sysUserInfoServices;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -32,8 +32,8 @@ namespace MultiAgentDevelop.Extensions
         {
             try
             {
-                var model = _blogArticleServices.GetBlogDetails(1).Result;
-                Console.WriteLine($"Job 1 启动成功，获取id=1的博客title为:{model?.btitle}");
+                var model = _sysUserInfoServices.QueryById(1).Result;
+                Console.WriteLine($"Job 1 启动成功，获取id=1的用户登录名为:{model?.LoginName}");
             }
             catch (Exception ex)
             {

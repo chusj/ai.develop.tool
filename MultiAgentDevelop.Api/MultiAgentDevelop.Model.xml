@@ -215,77 +215,6 @@
             更新时间
             </summary>
         </member>
-        <member name="T:MultiAgentDevelop.Model.Models.BlogArticle">
-            <summary>
-            博客文章
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bID">
-            <summary>
-            主键
-            </summary>
-            这里之所以没用RootEntity，是想保持和之前的数据库一致，主键是bID，不是Id
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bsubmitter">
-            <summary>
-            创建人
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.btitle">
-            <summary>
-            标题blog
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bcategory">
-            <summary>
-            类别
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bcontent">
-            <summary>
-            内容
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.btraffic">
-            <summary>
-            访问量
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bcommentNum">
-            <summary>
-            评论数量
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bUpdateTime">
-            <summary> 
-            修改时间
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bCreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.bRemark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.IsDeleted">
-            <summary>
-            逻辑删除
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.BlogArticle.Comments">
-            <summary>
-            评论
-            </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.Models.BlogArticleComment">
-            <summary>
-            博客文章 评论
-            </summary>
-        </member>
         <member name="T:MultiAgentDevelop.Model.Models.Department">
             <summary>
              部门表
@@ -359,41 +288,6 @@
             Desc:更新时间
             Default:
             Nullable:True
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.blogId">
-            <summary>博客ID
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.createdate">
-            <summary>创建时间
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.phone">
-            <summary>手机
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.QQ">
-            <summary>qq
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.body">
-            <summary>留言内容
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.ip">
-            <summary>ip地址
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Guestbook.isshow">
-            <summary>是否显示在前台,0否1是
-            
             </summary>
         </member>
         <member name="T:MultiAgentDevelop.Model.Models.Modules">
@@ -540,16 +434,6 @@
             <summary>
             用户ID
             </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.Models.PasswordLib">
-            <summary>
-            密码库表
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.PasswordLib.IsDeleted">
-             <summary>
-            获取或设置是否禁用，逻辑上的删除，非物理删除
-             </summary>
         </member>
         <member name="T:MultiAgentDevelop.Model.Models.Permission">
             <summary>
@@ -1175,16 +1059,6 @@
             金额
             </summary>
         </member>
-        <member name="T:MultiAgentDevelop.Model.Models.Topic">
-            <summary>
-            Tibug 类别
-            </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.Models.TopicDetail">
-            <summary>
-            Tibug 博文
-            </summary>
-        </member>
         <member name="T:MultiAgentDevelop.Model.Models.UserRole">
             <summary>
             用户跟角色关联表
@@ -1714,11 +1588,6 @@
             泛型主键Tkey
             </summary>
         </member>
-        <member name="T:MultiAgentDevelop.Model.TopicDetailRoot`1">
-            <summary>
-            Tibug 博文
-            </summary>
-        </member>
         <member name="T:MultiAgentDevelop.Model.UserRoleRoot`1">
             <summary>
             用户跟角色关联表
@@ -1874,134 +1743,9 @@
             表隔离
             </summary>
         </member>
-        <member name="T:MultiAgentDevelop.Model.ViewModels.BlogViewModels">
-            <summary>
-            博客信息展示类
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bsubmitter">
-            <summary>创建人
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.btitle">
-            <summary>博客标题
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.digest">
-            <summary>摘要
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.previous">
-            <summary>
-            上一篇
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.previousID">
-            <summary>
-            上一篇id
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.next">
-            <summary>
-            下一篇
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.nextID">
-            <summary>
-            下一篇id
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bcategory">
-            <summary>类别
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bcontent">
-            <summary>内容
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.btraffic">
-            <summary>
-            访问量
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bcommentNum">
-            <summary>
-            评论数量
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bUpdateTime">
-            <summary> 修改时间
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bCreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.BlogViewModels.bRemark">
-            <summary>备注
-            
-            </summary>
-        </member>
         <member name="P:MultiAgentDevelop.Model.ViewModels.EnumDemoDto.Type">
             <summary>
             Type Description balabala
-            </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels">
-            <summary>
-            留言信息展示类
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.id">
-            <summary>留言表
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.blogId">
-            <summary>博客ID
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.createdate">
-            <summary>创建时间
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.phone">
-            <summary>手机
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.QQ">
-            <summary>qq
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.body">
-            <summary>留言内容
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.ip">
-            <summary>ip地址
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.GuestbookViewModels.isshow">
-            <summary>是否显示在前台,0否1是
-            
             </summary>
         </member>
         <member name="P:MultiAgentDevelop.Model.ViewModels.PayModel.MERCHANTID">
@@ -2497,44 +2241,9 @@
             触发器状态
             </summary>
         </member>
-        <member name="T:MultiAgentDevelop.Model.ViewModels.TestRestSharpGetDto">
-            <summary>
-            用来测试 RestSharp Get 请求
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.TestRestSharpGetDto.success">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.TestRestSharpGetDto.data">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:MultiAgentDevelop.Model.ViewModels.TestRestSharpPostDto">
             <summary>
             用来测试 RestSharp Post 请求
-            </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.ViewModels.TopgbViewModels">
-            <summary>
-            留言排名展示类
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.TopgbViewModels.blogId">
-            <summary>博客ID
-            
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.TopgbViewModels.counts">
-            <summary>
-            评论数量
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.TopgbViewModels.btitle">
-            <summary>博客标题
-            
             </summary>
         </member>
         <member name="T:MultiAgentDevelop.Model.ViewModels.WeChatApiDto">

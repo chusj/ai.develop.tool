@@ -263,7 +263,8 @@ SysTenant (租户定义: TenantType / ConfigId / Connection)
 | 10 | `MultiAgentDevelop.Api/wwwroot/BlogCore.Data.json/Xxx.tsv` | 种子数据文件 |
 | 11 | `MultiAgentDevelop.Tasks/QuartzNet/Jobs/Job_Xxx_Quartz.cs` | 依赖被删实体的定时任务 |
 | 12 | `MultiAgentDevelop.Extensions/AutoMapper/CustomProfile.cs` | AutoMapper 映射配置 |
-| 13 | `MultiAgentDevelop.EventBus/EventBusKafka/*` | 删 `Topic` 时要同步改（Kafka 示例里用了它） |
+| 13 | ~~`MultiAgentDevelop.EventBus/EventBusKafka/*`~~ | **经核实无需改动**：那里的 `Topic` 是 Kafka 配置项 `KafkaOptions.Topic`，与实体 `Topic` 无关（初版文档此处判断有误，已更正） |
+| 13.1 | `Api/Filter/UseServiceDIAttribute.cs`、`Extensions/Redis/RedisSubscribe.cs`、`Extensions/EventHandling/BlogQueryIntegrationEventHandler.cs`、`Extensions/HostedService/Job1TimedService.cs` | **易漏项**：这些类通过**构造函数注入了 `IBlogArticleServices`**。因为 `\bBlogArticle\b` 匹配不到 `IBlogArticleServices`，按实体名扫描会漏掉 |
 | 14 | `MultiAgentDevelop.Api/Controllers/ValuesController.cs`、`TransactionController.cs` | 框架自带的演示控制器，引用了一堆示例实体，建议一并删空 |
 | 15 | `MultiAgentDevelop.Vue3/src/api/*.ts` + `src/views/*` | 前端对应页面（blog/department/login/module/permission/quartzJob/role/user 共 8 个模块） |
 | 16 | 数据库表 | `DBSeed` 只建不删，**必须手工 `DROP TABLE`** |
@@ -309,13 +310,47 @@ MultiAgentDevelop.Services/SplitDemoServices.cs
 2. 数据库中 `GblLogAudit`、`REPORT_ABNORAML`、`TestMuchTableResult`、`SplitDemo_*` 这几张表**需手工 DROP** —— `DBSeed` 只建不删。
 
 
-### B 档 — 演示业务（确认不做博客/话题就删）
+### B 档 — 演示业务（已于 2026-10-13 执行完毕）
 
-```
-BlogArticle / BlogArticleComment / Topic / TopicDetail / Guestbook / PasswordLib
-```
-连带：6 个 Controller（Blog、Topic、TopicDetail）+ 6 组 Service/IService + 4 个 Job 里对它们的引用 + `CustomProfile` 映射 + `BlogCore.Data.json/*.tsv`（8 个文件）+ `ValuesController` / `TransactionController`。
-注意 `Topic` 还被 `EventBus/EventBusKafka` 三处引用，一起改。
+需求确认：**系统不开发博客、话题、留言、密码库业务。**
+
+**已删除的 31 个后端文件 + 5 个前端文件：**
+
+| 层 | 文件 |
+|---|---|
+| 实体（7） | `Models/BlogArticle.cs`、`BlogArticleComment.cs`、`Topic.cs`、`TopicDetail.cs`、`Guestbook.cs`、`PasswordLib.cs`、`RootTkey/TopicDetailRoot.cs` |
+| ViewModel（4） | `ViewModels/BlogViewModels.cs`、`GuestbookViewModels.cs`、`TestRestSharpGetDto.cs`、`TopgbViewModels.cs` |
+| 控制器（4） | `BlogController.cs`、`TopicController.cs`、`TopicDetailController.cs`、`TransactionController.cs` |
+| 服务（10） | `IBlogArticleServices` / `ITopicServices` / `ITopicDetailServices` / `IGuestbookServices` / `IPasswordLibServices` 及各自实现 |
+| 定时任务（1） | `Tasks/QuartzNet/Jobs/Job_Blogs_Quartz.cs` |
+| 测试（3） | `Tests/Controller_Test/BlogController_Should.cs`、`Service_Test/BlogArticleService_Should.cs`、`Common_Test/DynamicLambdaTest.cs` |
+| 种子数据（3） | `wwwroot/BlogCore.Data.json/BlogArticle.tsv`、`Topic.tsv`、`TopicDetail.tsv` |
+| 前端（5） | `Vue3/src/api/blogApi.ts`、`src/views/Blog/{Blogs.vue,Detail.vue,blogsFunctions.ts}`、`src/views/Tibug/Bugs.vue` |
+
+**同步改造的 11 个文件（否则编译不过或留死代码）：**
+
+| 文件 | 改动 |
+|---|---|
+| `Common/Seed/DBSeed.cs` | 删除 `#region BlogArticle` / `#region Topic` / `#region TopicDetail` 三个种子块 |
+| `Extensions/AutoMapper/CustomProfile.cs` | 删除 `BlogArticle ↔ BlogViewModels` 两行映射 |
+| `Api/Controllers/ValuesController.cs` | 删除 `_blogArticleServices` / `_passwordLibServices` 字段与构造注入；删除 `TestSqlsugarWithCache()`、`Get()`、`Test_Aop_Cache()`、`TestMutiDBAPI()` 四个纯博客方法；`Post()` 的 body 参数由 `BlogArticle` 改为 `Role` |
+| `Api/Filter/UseServiceDIAttribute.cs` | `IBlogArticleServices` → `IRoleServices` |
+| `Extensions/Redis/RedisSubscribe.cs` | 删除未被使用的 `IBlogArticleServices` 注入（订阅方法里根本没用到） |
+| `Extensions/EventHandling/BlogQueryIntegrationEventHandler.cs` | 删除 `IBlogArticleServices` 依赖，`Handle` 只保留日志；事件总线骨架保留 |
+| `Extensions/HostedService/Job1TimedService.cs` | `IBlogArticleServices` → `ISysUserInfoServices`，输出改为用户登录名 |
+| `Tasks/HostedService/Job1TimedService.cs` | **整个删除**（与 Extensions 那份重复，且从未被 `AddHostedService` 注册，属死代码） |
+| `Tests/Repository_Test/OrmTest.cs` | 测试载体 `BlogArticle`/`BlogArticleComment` → `SysUserInfo`/`UserRole` |
+| `Tests/Repository_Test/Repository_Base_Should.cs` | 测试载体 → `SysUserInfo`（保留仓储基类 CRUD 覆盖） |
+| `Api/MultiAgentDevelop.Api.csproj` | 删除 3 个已删 tsv 的 `<None Include>` 条目 |
+
+**编译验证**：`dotnet build MultiAgentDevelop.sln` → **0 错误**，12 个警告（均为既有），13 个程序集全部生成。
+
+**B 档遗留（需你决定）：**
+
+1. **种子菜单数据仍指向已删接口**：`wwwroot/BlogCore.Data.json/Modules.tsv` 里有 7 条（3 条 `/api/TopicDetail/*` + 4 条 `/api/Blog*`），`Permission.tsv` 里有 2 条前端路由（`/Blog/Blogs`、`/Blog/Detail/:id`），`RoleModulePermission.tsv` 里有对应的关联记录。
+   - 这三份文件**当前不生效**（`AppSettings.SeedDBDataEnabled = false`）。
+   - 未自动清理的原因：`Permission.tsv` 是 **JSONC 格式**（内含 `//{ ... }` 注释块），程序化改写风险高；且三者按 `Id` 互相关联，必须一致删除才不会留下悬空记录。
+2. 数据库里 `BlogArticle`、`BlogArticleComment`、`Topic`、`TopicDetail`、`Guestbook`、`PasswordLib` 六张表**需手工 DROP**。
 
 ### C 档 — 独立功能模块（按需删）
 
@@ -345,16 +380,17 @@ OperateLog / AccessTrendLog       若保留后台统计则保留
 ## 七、建议执行顺序
 
 1. ~~先删 A 档（4 个类 + 1 组 Service），编译通过验证一遍。~~ **已完成，0 错误。**
-2. **决定 B/C 档范围**，按模块整块删，每删一块编译一次。
-3. **清 `DBSeed.cs` 里的 `#region`** 和 `wwwroot/BlogCore.Data.json/*.tsv`。
-4. **删 `ValuesController.cs` / `TransactionController.cs`**（框架演示控制器，没有业务价值）。
-5. **清前端 `src/api/*.ts` 和 `src/views/*`** 里对应模块。
-6. **手工 `DROP` 数据库里的旧表**：`DBSeed` 只建不删。
-7. 最后跑一次 `dotnet build`（或 VS 的 F6），确认 `MultiAgentDevelop.Services.dll` / `Repository.dll` 正常生成——Autofac 启动时会硬检查这两个 dll 是否存在。
+2. ~~删 B 档（博客/话题/留言/密码库），每删一块编译一次。~~ **已完成，0 错误。**
+3. **决定 C 档范围**（微信 / 多租户演示 / Quartz），按模块整块删，每删一块编译一次。
+4. **清理种子菜单数据**（`Modules.tsv` / `Permission.tsv` / `RoleModulePermission.tsv`）—— 见 B 档遗留项，需三份文件按 Id 一致删除。
+5. **手工 `DROP` 数据库里的旧表**：`DBSeed` 只建不删。
+6. 最后跑一次 `dotnet build`（或 VS 的 F6），确认 `MultiAgentDevelop.Services.dll` / `Repository.dll` 正常生成——Autofac 启动时会硬检查这两个 dll 是否存在。
 
 ---
 
-## 八、待你确认的两件事
+## 八、待你确认
 
-1. **这个项目实际要做什么业务？** 目前 `Model/Models` 下**没有任何业务实体**，全是框架自带的演示表。如果目标是从你自己的 Oracle 库反向生成实体，那 B/C 档可以一次性全删，然后用 `DbFirstController` 从 `Main` 连接（当前指向 `C##ZHOUSHAN_TIJIAN@health`）反向生成。
-2. **多租户和 Quartz 要不要留？** 这两个不删则要保留对应的 Controller/Service/Seed 一整条链。
+1. **C 档范围**：微信模块（`WeChat*` 5 个实体 + 5 个 Controller + 20 余个 DTO）、多租户演示（4 张业务表 + 3 个 Tenant 演示 Controller）、Quartz 定时任务（`TasksQz`/`TasksLog`）—— 哪些要删？
+2. **多租户要不要动**：删 `SysTenant` 需同步改 `SysUserInfo.TenantId`（OneToOne 真导航）、`TenantUtil`、`RepositorySetting`。
+3. **B 档的种子菜单数据**要不要一并清（`Modules.tsv` 7 条 / `Permission.tsv` 2 条 / `RoleModulePermission.tsv` 关联项）。
+4. **项目实际业务实体**：`Model/Models` 下目前仍无业务实体。若打算从现有 Oracle 库（当前 `Main` 连接指向 `C##ZHOUSHAN_TIJIAN@health`）反向生成，可用 `DbFirstController`。

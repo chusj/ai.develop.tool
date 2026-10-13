@@ -4,83 +4,6 @@
         <name>MultiAgentDevelop.Api</name>
     </assembly>
     <members>
-        <member name="T:MultiAgentDevelop.Controllers.BlogController">
-            <summary>
-            博客管理
-            </summary>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.#ctor(Microsoft.Extensions.Logging.ILogger{MultiAgentDevelop.Controllers.BlogController})">
-            <summary>
-            构造函数
-            </summary>
-            <param name="logger"></param>
-            
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.Get(System.Int32,System.Int32,System.String,System.String)">
-            <summary>
-            获取博客列表【无权限】
-            </summary>
-            <param name="id"></param>
-            <param name="page"></param>
-            <param name="bcategory"></param>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.Get(System.Int64)">
-            <summary>
-            获取博客详情
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.DetailNuxtNoPer(System.Int64)">
-            <summary>
-            获取详情【无权限】
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.V2_Blogtest">
-            <summary>
-            获取博客测试信息 v2版本
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.Post(MultiAgentDevelop.Model.Models.BlogArticle)">
-            <summary>
-            添加博客【无权限】
-            </summary>
-            <param name="blogArticle"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.AddForMVP(MultiAgentDevelop.Model.Models.BlogArticle)">
-            <summary>
-            
-            </summary>
-            <param name="blogArticle"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.Put(MultiAgentDevelop.Model.Models.BlogArticle)">
-            <summary>
-            更新博客信息
-            </summary>
-            <param name="BlogArticle"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.Delete(System.Int64)">
-            <summary>
-            删除博客
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.BlogController.ApacheTestUpdate">
-            <summary>
-            apache jemeter 压力测试
-            更新接口
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:MultiAgentDevelop.Controllers.DbFirstController.#ctor(SqlSugar.ISqlSugarClient,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             构造函数
@@ -586,81 +509,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MultiAgentDevelop.Controllers.TopicController">
-            <summary>
-            类别管理【无权限】
-            </summary>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicController.#ctor(MultiAgentDevelop.IServices.ITopicServices)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="topicServices"></param>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicController.Get">
-            <summary>
-            获取Tibug所有分类
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:MultiAgentDevelop.Controllers.TopicDetailController">
-            <summary>
-            Tibug 管理
-            </summary>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.#ctor(MultiAgentDevelop.IServices.ITopicServices,MultiAgentDevelop.IServices.ITopicDetailServices)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="topicServices"></param>
-            <param name="topicDetailServices"></param>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.Get(System.Int32,System.String,System.String,System.Int32)">
-            <summary>
-            获取Bug数据列表（带分页）
-            【无权限】
-            </summary>
-            <param name="page">页数</param>
-            <param name="tname">专题类型</param>
-            <param name="key">关键字</param>
-            <param name="intPageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.Get(System.Int64)">
-            <summary>
-            获取详情【无权限】
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.Post(MultiAgentDevelop.Model.Models.TopicDetail)">
-            <summary>
-            添加一个 BUG 【无权限】
-            </summary>
-            <param name="topicDetail"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.Update(MultiAgentDevelop.Model.Models.TopicDetail)">
-            <summary>
-            更新 bug
-            </summary>
-            <param name="topicDetail"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TopicDetailController.Delete(System.Int64)">
-            <summary>
-            删除 bug
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.TransactionController.Delete(System.Int64)">
-            <summary>
-            测试事务在AOP中的使用
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:MultiAgentDevelop.Controllers.UserController">
             <summary>
             用户管理
@@ -768,20 +616,6 @@
             测试Rabbit消息队列订阅
             </summary>
         </member>
-        <member name="M:MultiAgentDevelop.Controllers.ValuesController.TestSqlsugarWithCache">
-            <summary>
-            测试SqlSugar二级缓存
-            可设置过期时间
-            或通过接口方式更新该数据，也会离开清除缓存
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.ValuesController.Get">
-            <summary>
-            Get方法
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:MultiAgentDevelop.Controllers.ValuesController.RedisMq(MultiAgentDevelop.Extensions.IRedisBasketRepository)">
             <summary>
             测试Redis消息队列
@@ -829,11 +663,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MultiAgentDevelop.Controllers.ValuesController.Post(MultiAgentDevelop.Model.Models.BlogArticle,System.Int32)">
+        <member name="M:MultiAgentDevelop.Controllers.ValuesController.Post(MultiAgentDevelop.Model.Models.Role,System.Int32)">
             <summary>
             测试 post 一个对象 + 独立参数
             </summary>
-            <param name="blogArticle">model实体类参数</param>
+            <param name="role">model实体类参数</param>
             <param name="id">独立参数</param>
         </member>
         <member name="M:MultiAgentDevelop.Controllers.ValuesController.TestPostPara(System.String)">
@@ -841,12 +675,6 @@
             测试 post 参数
             </summary>
             <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:MultiAgentDevelop.Controllers.ValuesController.TestMutiDBAPI">
-            <summary>
-            测试多库连接
-            </summary>
             <returns></returns>
         </member>
         <member name="M:MultiAgentDevelop.Controllers.ValuesController.FluentVaTest(MultiAgentDevelop.Filter.UserRegisterVo)">

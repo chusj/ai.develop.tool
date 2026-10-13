@@ -39,15 +39,13 @@ namespace MultiAgentDevelop.Controllers
         private IMapper _mapper;
         private readonly Love _love;
         private readonly IUser _user;
-        private readonly IPasswordLibServices _passwordLibServices;
-        readonly IBlogArticleServices _blogArticleServices;
         private readonly IHttpPollyHelper _httpPollyHelper;
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly SeqOptions _seqOptions;
         private readonly ICaching _cache;
 
-        public ValuesController(IBlogArticleServices blogArticleServices, IMapper mapper, Love love,
-            IUser user, IPasswordLibServices passwordLibServices,
+        public ValuesController(IMapper mapper, Love love,
+            IUser user,
             IHttpPollyHelper httpPollyHelper, IRabbitMQPersistentConnection persistentConnection, IOptions<SeqOptions> seqOptions, ICaching caching)
         {
             // 测试 Authorize 和 mapper
@@ -55,12 +53,6 @@ namespace MultiAgentDevelop.Controllers
             _love = love;
             // 测试 Httpcontext
             _user = user;
-            // 测试多库
-            _passwordLibServices = passwordLibServices;
-            // 测试AOP加载顺序，配合 return
-            _blogArticleServices = blogArticleServices;
-            // 测试redis消息队列
-            _blogArticleServices = blogArticleServices;
             // httpPolly
             _httpPollyHelper = httpPollyHelper;
             _persistentConnection = persistentConnection;
@@ -121,86 +113,6 @@ namespace MultiAgentDevelop.Controllers
                     }
                 ).ToList()
             };
-        }
-
-        /// <summary>
-        /// 测试SqlSugar二级缓存
-        /// 可设置过期时间
-        /// 或通过接口方式更新该数据，也会离开清除缓存
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<BlogArticle> TestSqlsugarWithCache()
-        {
-            return await _blogArticleServices.QueryById("1", true);
-        }
-
-        /// <summary>
-        /// Get方法
-        /// </summary>
-        /// <returns></returns>
-        // GET api/values
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<MessageModel<ResponseEnum>> Get()
-        {
-            var data = new MessageModel<ResponseEnum>();
-
-            /*
-             *  测试 sql 查询
-             */
-            var queryBySql =
-                await _blogArticleServices.QuerySql(
-                    "SELECT bsubmitter,btitle,bcontent,bCreateTime FROM BlogArticle WHERE bID>5");
-
-            /*
-             *  测试按照指定列查询
-             */
-            var queryByColums = await _blogArticleServices
-               .Query<BlogViewModels>(it => new BlogViewModels() { btitle = it.btitle });
-
-            /*
-             *  测试按照指定列查询带多条件和排序方法
-             */
-            Expression<Func<BlogArticle, bool>> registerInfoWhere = a => a.btitle == "xxx" && a.bRemark == "XXX";
-            var queryByColumsByMultiTerms = await _blogArticleServices
-               .Query<BlogArticle>(it => new BlogArticle() { btitle = it.btitle }, registerInfoWhere, "bID Desc");
-
-            /*
-             *  测试 sql 更新
-             *
-             * 【SQL参数】：@bID:5
-             *  @bsubmitter:laozhang619
-             *  @IsDeleted:False
-             * 【SQL语句】：UPDATE `BlogArticle`  SET
-             *  `bsubmitter`=@bsubmitter,`IsDeleted`=@IsDeleted  WHERE `bID`=@bID
-             */
-            var updateSql = await _blogArticleServices.Update(new
-                { bsubmitter = $"laozhang{DateTime.Now.Millisecond}", IsDeleted = false, bID = 5 });
-
-
-            // 测试 AOP 缓存
-            var blogArticles = await _blogArticleServices.GetBlogs();
-
-
-            return data;
-        }
-
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<MessageModel<List<BlogArticle>>> Test_Aop_Cache()
-        {
-            // 测试 AOP 缓存
-            var blogArticles = await _blogArticleServices.GetBlogs();
-
-            if (blogArticles.Any())
-            {
-                return Success(blogArticles);
-            }
-
-            return Failed<List<BlogArticle>>();
         }
 
         /// <summary>
@@ -304,13 +216,13 @@ namespace MultiAgentDevelop.Controllers
         /// <summary>
         /// 测试 post 一个对象 + 独立参数
         /// </summary>
-        /// <param name="blogArticle">model实体类参数</param>
+        /// <param name="role">model实体类参数</param>
         /// <param name="id">独立参数</param>
         [HttpPost]
         [AllowAnonymous]
-        public object Post([FromBody] BlogArticle blogArticle, int id)
+        public object Post([FromBody] Role role, int id)
         {
-            return Ok(new { success = true, data = blogArticle, id = id });
+            return Ok(new { success = true, data = role, id = id });
         }
 
 
@@ -324,29 +236,6 @@ namespace MultiAgentDevelop.Controllers
         public object TestPostPara(string name)
         {
             return Ok(new { success = true, name = name });
-        }
-
-        /// <summary>
-        /// 测试多库连接
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("TestMutiDBAPI")]
-        [AllowAnonymous]
-        public async Task<object> TestMutiDBAPI()
-        {
-            // 从主库中，操作blogs
-            var blogs = await _blogArticleServices.Query(d => d.bID == 1);
-            var addBlog = await _blogArticleServices.Add(new BlogArticle() { });
-
-            // 从从库中，操作pwds
-            var pwds = await _passwordLibServices.Query(d => d.PLID > 0);
-            var addPwd = await _passwordLibServices.Add(new PasswordLib() { });
-
-            return new
-            {
-                blogs,
-                pwds
-            };
         }
 
         /// <summary>

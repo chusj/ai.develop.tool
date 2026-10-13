@@ -13,7 +13,7 @@ namespace MultiAgentDevelop.Tests;
 public class OrmTest
 {
     private readonly ITestOutputHelper _testOutputHelper;
-    private readonly IBaseRepository<BlogArticle> _baseRepository;
+    private readonly IBaseRepository<SysUserInfo> _baseRepository;
     DI_Test dI_Test = new DI_Test();
 
     public OrmTest(ITestOutputHelper testOutputHelper)
@@ -22,7 +22,7 @@ public class OrmTest
 
         var container = dI_Test.DICollections();
 
-        _baseRepository = container.Resolve<IBaseRepository<BlogArticle>>();
+        _baseRepository = container.Resolve<IBaseRepository<SysUserInfo>>();
         _baseRepository.Db.Aop.OnLogExecuting = (sql, p) =>
         {
             _testOutputHelper.WriteLine("");
@@ -48,26 +48,21 @@ public class OrmTest
     [Fact]
     public void MultiTables()
     {
-        var sql = _baseRepository.Db.Queryable<BlogArticle>()
-            .AS($@"{nameof(BlogArticle)}_TenantA")
+        var sql = _baseRepository.Db.Queryable<SysUserInfo>()
+            .AS($@"{nameof(SysUserInfo)}_TenantA")
             .ToSqlString();
         //_testOutputHelper.WriteLine(sql);
 
-        _baseRepository.Db.MappingTables.Add(nameof(BlogArticle), $@"{nameof(BlogArticle)}_TenantA");
+        _baseRepository.Db.MappingTables.Add(nameof(SysUserInfo), $@"{nameof(SysUserInfo)}_TenantA");
 
-        var query = _baseRepository.Db.Queryable<BlogArticle>()
-            .LeftJoin<BlogArticleComment>((a, c) => a.bID == c.bID);
-        // query.QueryBuilder.AsTables.AddOrModify(nameof(BlogArticle), $@"{nameof(BlogArticle)}_TenantA");
-        //query.QueryBuilder.AsTables.AddOrModify(nameof(BlogArticleComment), $@"{nameof(BlogArticleComment)}_TenantA");
-        // query.QueryBuilder.AsTables.AddOrModify(nameof(BlogArticleComment), $@"{nameof(BlogArticleComment)}_TenantA");
-        // query.QueryBuilder.AsTables.AddOrModify(nameof(SysUserInfo), $@"{nameof(SysUserInfo)}_TenantA");
-
+        var query = _baseRepository.Db.Queryable<SysUserInfo>()
+            .LeftJoin<UserRole>((a, c) => a.Id == c.UserId);
 
         sql = query.ToSqlString();
 
         _testOutputHelper.WriteLine(sql);
 
-        sql = _baseRepository.Db.Deleteable<BlogArticle>().ToSqlString();
+        sql = _baseRepository.Db.Deleteable<SysUserInfo>().ToSqlString();
         _testOutputHelper.WriteLine(sql);
     }
 }
