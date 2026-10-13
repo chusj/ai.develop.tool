@@ -215,31 +215,6 @@
             更新时间
             </summary>
         </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Advertisement.ImgUrl">
-            <summary>
-            广告图片
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Advertisement.Title">
-            <summary>
-            广告标题
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Advertisement.Url">
-            <summary>
-            广告链接
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Advertisement.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.Models.Advertisement.Createdate">
-            <summary>
-            创建时间
-            </summary>
-        </member>
         <member name="T:MultiAgentDevelop.Model.Models.BlogArticle">
             <summary>
             博客文章
@@ -2087,41 +2062,6 @@
         <member name="F:MultiAgentDevelop.Model.Tenants.TenantTypeEnum.Tables">
             <summary>
             表隔离
-            </summary>
-        </member>
-        <member name="T:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels">
-            <summary>
-            广告类
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.Id">
-            <summary>
-            分类ID
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.Createdate">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.ImgUrl">
-            <summary>
-            广告图片
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.Title">
-            <summary>
-            广告标题
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.Url">
-            <summary>
-            广告链接
-            </summary>
-        </member>
-        <member name="P:MultiAgentDevelop.Model.ViewModels.AdvertisementViewModels.Remark">
-            <summary>
-            备注
             </summary>
         </member>
         <member name="T:MultiAgentDevelop.Model.ViewModels.BlogViewModels">

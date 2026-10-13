@@ -37,7 +37,6 @@ namespace MultiAgentDevelop.Controllers
     public class ValuesController : BaseApiController
     {
         private IMapper _mapper;
-        private readonly IAdvertisementServices _advertisementServices;
         private readonly Love _love;
         private readonly IRoleModulePermissionServices _roleModulePermissionServices;
         private readonly IUser _user;
@@ -48,13 +47,12 @@ namespace MultiAgentDevelop.Controllers
         private readonly SeqOptions _seqOptions;
         private readonly ICaching _cache;
 
-        public ValuesController(IBlogArticleServices blogArticleServices, IMapper mapper, IAdvertisementServices advertisementServices, Love love,
+        public ValuesController(IBlogArticleServices blogArticleServices, IMapper mapper, Love love,
             IRoleModulePermissionServices roleModulePermissionServices, IUser user, IPasswordLibServices passwordLibServices,
             IHttpPollyHelper httpPollyHelper, IRabbitMQPersistentConnection persistentConnection, IOptions<SeqOptions> seqOptions, ICaching caching)
         {
             // 测试 Authorize 和 mapper
             _mapper = mapper;
-            _advertisementServices = advertisementServices;
             _love = love;
             _roleModulePermissionServices = roleModulePermissionServices;
             // 测试 Httpcontext
@@ -190,17 +188,6 @@ namespace MultiAgentDevelop.Controllers
 
             // 测试多表联查
             var roleModulePermissions = await _roleModulePermissionServices.QueryMuchTable();
-
-
-            // 测试多个异步执行时间
-            var roleModuleTask = _roleModulePermissionServices.Query();
-            var listTask = _advertisementServices.Query();
-            var ad = await roleModuleTask;
-            var list = await listTask;
-
-
-            // 测试service层返回异常
-            _advertisementServices.ReturnExp();
 
             return data;
         }

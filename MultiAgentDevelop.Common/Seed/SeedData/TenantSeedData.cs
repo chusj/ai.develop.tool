@@ -32,6 +32,7 @@ public class TenantSeedData : IEntitySeedData<SysTenant>
                 Name = "李四",
                 TenantType = TenantTypeEnum.Id
             },
+            /* 关闭
             new SysTenant()
             {
                 Id = 1000003,
@@ -49,7 +50,7 @@ public class TenantSeedData : IEntitySeedData<SysTenant>
                 TenantType = TenantTypeEnum.Db,
                 DbType = DbType.Sqlite,
                 Connection = $"DataSource=" + Path.Combine(Environment.CurrentDirectory, "ZhaoLiu.db"),
-            },
+            },*/
             new SysTenant()
             {
                 Id = 1000005,
