@@ -700,6 +700,116 @@
             软删除 过滤器
             </summary>
         </member>
+        <member name="T:MultiAgentDevelop.Model.Models.SmsAccount">
+            <summary>
+            短信账号表
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.AccountName">
+            <summary>
+            账号名称，全局唯一
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.ProviderId">
+            <summary>
+            绑定的供应商 ID（sms_provider.id）
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.AccessKey">
+            <summary>
+            AccessKey / 密钥 ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.AccessSecret">
+            <summary>
+            AccessSecret / 密钥，AES 密文存储
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.SignName">
+            <summary>
+            默认签名，为空时取供应商签名
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.Balance">
+            <summary>
+            剩余额度（条）
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.WarnThreshold">
+            <summary>
+            余额预警阈值，小于等于该值时提示；0 表示不预警
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.Status">
+            <summary>
+            状态：true 启用 / false 禁用
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsAccount.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.Models.SmsProvider">
+            <summary>
+            短信供应商表
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.ProviderCode">
+            <summary>
+            供应商编码，全局唯一，大写字母 + 数字 + 下划线
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.ProviderName">
+            <summary>
+            供应商名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.ProviderType">
+            <summary>
+            供应商类型：ALIYUN / TENCENT / MENGWANG / HTTP_CUSTOM
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.BaseUrl">
+            <summary>
+            接口地址，HTTP_CUSTOM 类型必填
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.AppId">
+            <summary>
+            AppId / 用户名
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.AppSecret">
+            <summary>
+            AppSecret / 密码，AES 密文
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.SignName">
+            <summary>
+            默认短信签名
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.CallbackUrl">
+            <summary>
+            状态回调地址
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.DailyLimit">
+            <summary>
+            日发送上限，0 表示不限制
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.Status">
+            <summary>
+            状态：true 启用 / false 禁用
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.Models.SmsProvider.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
         <member name="T:MultiAgentDevelop.Model.Models.SysTenant">
             <summary>
             系统租户表 <br/>
@@ -1727,6 +1837,246 @@
         <member name="T:MultiAgentDevelop.Model.ViewModels.SidebarMenuViewModel">
             <summary>
             菜单展示model
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsAccountDto">
+            <summary>
+            短信账号 - 列表 / 详情 DTO
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.Id">
+            <summary>
+            账号 ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.AccountName">
+            <summary>
+            账号名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.ProviderId">
+            <summary>
+            绑定的供应商 ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.ProviderName">
+            <summary>
+            绑定供应商名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.ProviderType">
+            <summary>
+            绑定供应商类型
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.ProviderStatus">
+            <summary>
+            绑定供应商是否启用
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.AccessKey">
+            <summary>
+            AccessKey，脱敏展示
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.AccessSecret">
+            <summary>
+            AccessSecret，一律返回掩码
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.SignName">
+            <summary>
+            默认签名
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.Balance">
+            <summary>
+            剩余额度
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.WarnThreshold">
+            <summary>
+            余额预警阈值
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.Warned">
+            <summary>
+            是否触发余额预警（阈值 &gt; 0 且 余额 &lt;= 阈值）
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.Status">
+            <summary>
+            状态：true 启用 / false 禁用
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountDto.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto">
+            <summary>
+            短信账号 - 新增 / 修改入参
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.Id">
+            <summary>
+            账号 ID，新增时为 0
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.AccountName">
+            <summary>
+            账号名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.ProviderId">
+            <summary>
+            绑定的供应商 ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.AccessKey">
+            <summary>
+            AccessKey
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.AccessSecret">
+            <summary>
+            AccessSecret，编辑时留空表示不修改
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.SignName">
+            <summary>
+            默认签名
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.Balance">
+            <summary>
+            初始额度，仅新增时生效
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.WarnThreshold">
+            <summary>
+            余额预警阈值
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto">
+            <summary>
+            短信账号 - 分页查询入参
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto.Page">
+            <summary>
+            当前页，从 1 开始
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto.IntPageSize">
+            <summary>
+            每页条数
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto.AccountName">
+            <summary>
+            账号名称，模糊匹配
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto.ProviderId">
+            <summary>
+            供应商 ID，null 表示全部
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto.Status">
+            <summary>
+            状态，null 表示全部
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsProviderOptionDto">
+            <summary>
+            供应商下拉项
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsProviderOptionDto.Id">
+            <summary>
+            供应商 ID
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsProviderOptionDto.ProviderName">
+            <summary>
+            供应商名称
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsProviderOptionDto.ProviderType">
+            <summary>
+            供应商类型
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsProviderOptionDto.Status">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsAccountTestResultDto">
+            <summary>
+            短信账号 - 连通性测试结果
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountTestResultDto.Success">
+            <summary>
+            是否连通
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountTestResultDto.Balance">
+            <summary>
+            通道返回的余额，未知时为 null
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsAccountTestResultDto.Message">
+            <summary>
+            成功说明或失败原因
+            </summary>
+        </member>
+        <member name="T:MultiAgentDevelop.Model.ViewModels.SmsActionResult">
+            <summary>
+            短信模块通用操作结果（服务层返回，由控制器转成统一返回结构）
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsActionResult.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsActionResult.Message">
+            <summary>
+            提示信息
+            </summary>
+        </member>
+        <member name="P:MultiAgentDevelop.Model.ViewModels.SmsActionResult.Id">
+            <summary>
+            新增成功时返回的新 Id
+            </summary>
+        </member>
+        <member name="M:MultiAgentDevelop.Model.ViewModels.SmsActionResult.Ok(System.String,System.Int64)">
+            <summary>
+            构造成功结果
+            </summary>
+        </member>
+        <member name="M:MultiAgentDevelop.Model.ViewModels.SmsActionResult.Fail(System.String)">
+            <summary>
+            构造失败结果
             </summary>
         </member>
         <member name="T:MultiAgentDevelop.Model.ViewModels.TaskInfoDto">

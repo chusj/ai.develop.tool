@@ -103,6 +103,12 @@ export const put = async <T>(url: string, data?: any): Promise<T> => {
     return response.data;
 };
 
+// 封装 patch 请求
+export const patch = async <T>(url: string, data?: any): Promise<T> => {
+    const response: AxiosResponse<T> = await axiosInstance.patch(url, data);
+    return response.data;
+};
+
 // 封装 delete 请求
 export const del = async <T>(url: string, params?: any): Promise<T> => {
     const response: AxiosResponse<T> = await axiosInstance.delete(url, { params });

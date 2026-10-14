@@ -795,6 +795,74 @@
             <param name="message"></param>
             <returns></returns>
         </member>
+        <member name="T:MultiAgentDevelop.Api.Controllers.SmsAccountController">
+            <summary>
+            短信账号管理
+            </summary>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.#ctor(MultiAgentDevelop.IServices.ISmsAccountServices,MultiAgentDevelop.Common.HttpContextUser.IUser)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="smsAccountServices">短信账号服务</param>
+            <param name="user">当前登录用户</param>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Page(MultiAgentDevelop.Model.ViewModels.SmsAccountQueryDto)">
+            <summary>
+            分页查询短信账号
+            </summary>
+            <param name="query">查询条件（账号名称模糊、供应商、状态、分页）</param>
+            <returns>分页列表</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Detail(System.Int64)">
+            <summary>
+            查询短信账号详情
+            </summary>
+            <param name="id">账号 Id</param>
+            <returns>账号详情，AccessSecret 为掩码</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.ProviderOptions">
+            <summary>
+            供应商下拉数据
+            </summary>
+            <returns>供应商列表（含禁用标记）</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Create(MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto)">
+            <summary>
+            新增短信账号
+            </summary>
+            <param name="dto">账号表单</param>
+            <returns>新账号 Id</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Update(MultiAgentDevelop.Model.ViewModels.SmsAccountSaveDto)">
+            <summary>
+            修改短信账号
+            </summary>
+            <param name="dto">账号表单，AccessSecret 留空表示不修改</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Remove(System.Int64)">
+            <summary>
+            删除短信账号（逻辑删除，被充值或发送记录引用时禁止删除）
+            </summary>
+            <param name="id">账号 Id</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.ChangeStatus(System.Int64,System.Boolean)">
+            <summary>
+            启用或禁用短信账号
+            </summary>
+            <param name="id">账号 Id</param>
+            <param name="status">true 启用 / false 禁用</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:MultiAgentDevelop.Api.Controllers.SmsAccountController.Test(System.Int64)">
+            <summary>
+            短信账号连通性测试（不改变任何数据）
+            </summary>
+            <param name="id">账号 Id</param>
+            <returns>是否连通及失败原因</returns>
+        </member>
         <member name="T:MultiAgentDevelop.Api.Controllers.Systems.CacheManageController">
             <summary>
             缓存管理
