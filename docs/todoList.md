@@ -22,13 +22,13 @@
 | T1-2 | 前端开发 | views/sms/provider 列表页（查询区/表格/分页/操作）+ 编辑弹窗 + api/smsProviderApi.ts + 路由注册 + 菜单种子数据 | 待开发 | DEV | | 依赖 T1-1 接口 |
 | T1-3 | 联调测试 | 启动前后端，管理员登录，逐条核对 PRD-01 第 7 节验收标准，产出 docs/test/01-短信供应商管理.md | 待开发 | QA | | 依赖 T1-1、T1-2 |
 
-## T2 短信账号管理（PRD-02 待产品经理产出）
+## T2 短信账号管理（PRD-02：docs/prd/02-短信账号管理.md）
 
 | 编号 | 任务 | 内容 | 状态 | 负责人 | 更新时间 | 备注 |
 |---|---|---|---|---|---|---|
-| T2-1 | 后端开发 | 实体 SmsAccount + 服务/仓储/控制器（CRUD、绑定供应商、余额/预警阈值、删除保护） | 待开发 | DEV | | PRD-02 产出后细化 |
-| T2-2 | 前端开发 | views/sms/account 列表页 + 编辑弹窗 + api 封装 + 路由 + 菜单 | 待开发 | DEV | | |
-| T2-3 | 联调测试 | 对照 PRD-02 验收标准验收 | 待开发 | QA | | |
+| T2-1 | 后端开发 | 实体 SmsAccount（+ 前置实体 SmsProvider）+ AesHelper + IServices/Services + SmsAccountController（分页/详情/增/改/删/启停/连通测试/供应商下拉，R1~R8 业务规则） | 待测试 | DEV | 2026-10-13 | 见 PRD-02 第 4、5 节 |
+| T2-2 | 前端开发 | views/sms/account.vue + smsAccountFunctions.ts + api/smsAccountApi.ts + axiosInstance 增加 patch；菜单与权限注册见 PRD-02 第 8 节（需管理员在系统中录入） | 待测试 | DEV | 2026-10-13 | 依赖 T2-1 接口 |
+| T2-3 | 联调测试 | 启动前后端，管理员登录，逐条核对 PRD-02 第 7 节验收标准（14 条），产出 docs/test/02-短信账号管理.md | 待开发 | QA | | 依赖 T2-1、T2-2 |
 
 ## T3 短信充值管理（PRD-03 待产品经理产出）
 
@@ -53,3 +53,4 @@
 | 日期 | 变更 | 操作人 |
 |---|---|---|
 | 2026-10-12 | 初始化清单：按 PRD-01 拆解 T1，预排 T2~T4 | PMS |
+| 2026-10-13 | PRD-02 短信账号管理产出；T2-1 / T2-2 后端与前端代码完成，`dotnet build` 零错误、`npm run build` 通过，状态改为「待测试」，等 QA 验收 | PMS / DEV |
